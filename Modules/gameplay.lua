@@ -1,41 +1,22 @@
--- GAMEPLAY MODULE: Auto-Grab and Auto-Shoot
-local Players = game:GetService("Players")
+-- modules/gameplay.lua: Interaction Logic
 local Workspace = game:GetService("Workspace")
-local VirtualInputManager = game:GetService("VirtualInputManager")
+local Players = game:GetService("Players")
 
-local LocalPlayer = Players.LocalPlayer
-
-local Gameplay = {
-    AutoGrab = false,
-    AutoShoot = false
-}
-
--- Auto-Grab Gun Logic
 task.spawn(function()
     while task.wait(0.5) do
-        if Gameplay.AutoGrab then
-            local gun = Workspace:FindFirstChild("GunDrop", true) -- Common name for dropped gun
-            if gun and LocalPlayer.Character then
-                LocalPlayer.Character:MoveTo(gun.Position)
+        if getgenv().LinganguSettings.AutoGrab then
+            local gun = Workspace:FindFirstChild("GunDrop", true)
+            if gun and Players.LocalPlayer.Character then
+                Players.LocalPlayer.Character:MoveTo(gun.Position)
             end
         end
-    end
-end)
-
--- Auto-Shoot Logic
-task.spawn(function()
-    while task.wait(0.2) do
-        if Gameplay.AutoShoot then
-            -- Logic: Identify Murderer (has Knife) and click if in range
-            for _, player in pairs(Players:GetPlayers()) do
-                if player.Character and player.Character:FindFirstChild("Knife") then
-                    -- Triggering a simulated mouse click
-                    VirtualInputManager:SendMouseButtonEvent(0, 0, 0, true, nil, 0)
-                    VirtualInputManager:SendMouseButtonEvent(0, 0, 0, false, nil, 0)
+        
+        if getgenv().LinganguSettings.AutoShoot then
+            for _, p in pairs(Players:GetPlayers()) do
+                if p.Character and p.Character:FindFirstChild("Knife") then
+                    -- Trigger shooting logic
                 end
             end
         end
     end
 end)
-
-return Gameplay
