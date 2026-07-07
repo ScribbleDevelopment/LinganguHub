@@ -20,5 +20,5 @@ end
 -- 3. Load in strict order
 safeLoad("main.lua")
 task.wait(0.5) -- Wait for UI to exist
-safeLoad("modules/esp.lua")
-safeLoad("modules/gameplay.lua")
+safeLoad("Modules/esp.lua")
+safeLoad("Modules/gameplay.lua")
