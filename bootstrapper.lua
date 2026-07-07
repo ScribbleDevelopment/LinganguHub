@@ -1,5 +1,5 @@
 -- BOOTSTRAPPER: Load LinganguHub
-local REPO_URL = "https://raw.githubusercontent.com/Scribble513/LinganguHub/main/"
+local REPO_URL = "https://raw.githubusercontent.com/ScribbleDevelopment/LinganguHub/main/"
 
 -- Initialize Shared Environment
 getgenv().LinganguSettings = {
@@ -9,6 +9,6 @@ getgenv().LinganguSettings = {
 }
 
 -- Load Modules
-loadstring(game:HttpGet(REPO_URL .. "modules/esp.lua"))()
-loadstring(game:HttpGet(REPO_URL .. "modules/gameplay.lua"))()
+loadstring(game:HttpGet(REPO_URL .. "Modules/esp.lua"))()
+loadstring(game:HttpGet(REPO_URL .. "Modules/gameplay.lua"))()
 loadstring(game:HttpGet(REPO_URL .. "main.lua"))()
