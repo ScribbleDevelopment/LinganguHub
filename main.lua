@@ -1,26 +1,24 @@
--- main.lua: UI and Settings
-local LinganguHub = Instance.new("ScreenGui", game.CoreGui)
-local MainFrame = Instance.new("Frame", LinganguHub)
-MainFrame.Size = UDim2.new(0, 200, 0, 300)
-MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
-MainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MainFrame.Active = true
-MainFrame.Draggable = true
+-- BOOTSTRAPPER: Reliable Load Order
+local REPO_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/LinganguHub/main/"
 
-local function createToggle(name, settingKey)
-    local btn = Instance.new("TextButton", MainFrame)
-    btn.Text = name
-    btn.Size = UDim2.new(0.9, 0, 0, 40)
-    btn.Position = UDim2.new(0.05, 0, 0, #MainFrame:GetChildren() * 50)
-    btn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    
-    btn.MouseButton1Click:Connect(function()
-        getgenv().LinganguSettings[settingKey] = not getgenv().LinganguSettings[settingKey]
-        local enabled = getgenv().LinganguSettings[settingKey]
-        btn.BackgroundColor3 = enabled and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(60, 60, 60)
+-- 1. Initialize Shared Environment
+getgenv().LinganguSettings = {
+    ESP_Enabled = false,
+    AutoGrab = false,
+    AutoShoot = false,
+    FlingMurderer = false
+}
+
+-- 2. Helper to load modules after a small delay
+local function safeLoad(path)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(REPO_URL .. path))()
     end)
+    if not success then warn("Error loading " .. path .. ": " .. tostring(result)) end
 end
 
-createToggle("ESP", "ESP_Enabled")
-createToggle("Auto Grab", "AutoGrab")
-createToggle("Auto Shoot", "AutoShoot")
+-- 3. Load in strict order
+safeLoad("main.lua")
+task.wait(0.5) -- Wait for UI to exist
+safeLoad("modules/esp.lua")
+safeLoad("modules/gameplay.lua")
