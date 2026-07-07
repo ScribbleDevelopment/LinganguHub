@@ -1,4 +1,4 @@
--- Modernized LinganguHub UI
+-- Modernized LinganguHub UI (with custom shadow ID)
 local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 
@@ -12,9 +12,16 @@ MainFrame.BorderSizePixel = 0
 -- UI Effects
 local Corner = Instance.new("UICorner", MainFrame); Corner.CornerRadius = UDim.new(0, 14)
 local Stroke = Instance.new("UIStroke", MainFrame); Stroke.Color = Color3.fromRGB(60, 60, 60); Stroke.Thickness = 2
-local Shadow = Instance.new("ImageLabel", MainFrame) -- Basic shadow
-Shadow.Size = UDim2.new(1, 10, 1, 10); Shadow.Position = UDim2.new(0, -5, 0, -5); Shadow.BackgroundTransparency = 1
-Shadow.Image = "rbxassetid://6015897843"; Shadow.ImageColor3 = Color3.new(0,0,0); Shadow.ImageTransparency = 0.5; Shadow.ZIndex = 0
+
+-- Custom Shadow Implementation
+local Shadow = Instance.new("ImageLabel", MainFrame)
+Shadow.Size = UDim2.new(1, 20, 1, 20)
+Shadow.Position = UDim2.new(0, -10, 0, -10)
+Shadow.BackgroundTransparency = 1
+Shadow.Image = "rbxassetid://15199050892" -- Your custom ID
+Shadow.ImageColor3 = Color3.new(0, 0, 0)
+Shadow.ImageTransparency = 0.3
+Shadow.ZIndex = 0
 
 -- Button
 local ToggleBtn = Instance.new("TextButton", MainFrame)
@@ -22,7 +29,7 @@ ToggleBtn.Size = UDim2.new(0.9, 0, 0.6, 0); ToggleBtn.Position = UDim2.new(0.05,
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45); ToggleBtn.Text = "ESP: OFF"; ToggleBtn.TextColor3 = Color3.new(1,1,1)
 ToggleBtn.Font = Enum.Font.GothamBold; ToggleBtn.TextSize = 18; Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 8)
 
--- Smooth Hover Animation
+-- Hover Effects
 ToggleBtn.MouseEnter:Connect(function()
     TweenService:Create(ToggleBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(60, 60, 60)}):Play()
 end)
@@ -31,7 +38,7 @@ ToggleBtn.MouseLeave:Connect(function()
 end)
 
 -- Dragging Logic
-local dragging, dragInput, dragStart, startPos
+local dragging, dragStart, startPos
 MainFrame.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true; dragStart = input.Position; startPos = MainFrame.Position
@@ -47,7 +54,7 @@ UIS.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then dragging = false end
 end)
 
--- Connect Toggle
+-- Toggle Logic
 ToggleBtn.MouseButton1Click:Connect(function()
     getgenv().ESP_Enabled = not getgenv().ESP_Enabled
     ToggleBtn.Text = getgenv().ESP_Enabled and "ESP: ON" or "ESP: OFF"
