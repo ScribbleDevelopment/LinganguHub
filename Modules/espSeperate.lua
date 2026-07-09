@@ -20,14 +20,14 @@ Shadow.Position = UDim2.new(0, -10, 0, -10)
 Shadow.BackgroundTransparency = 1
 Shadow.Image = "rbxassetid://15199050892" -- Your custom ID
 Shadow.ImageColor3 = Color3.new(0, 0, 0)
-Shadow.ImageTransparency = 0.3
+Shadow.ImageTransparency = 0.2
 Shadow.ZIndex = 0
 
 -- Button
 local ToggleBtn = Instance.new("TextButton", MainFrame)
 ToggleBtn.Size = UDim2.new(0.9, 0, 0.6, 0); ToggleBtn.Position = UDim2.new(0.05, 0, 0.2, 0)
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45); ToggleBtn.Text = "ESP: OFF"; ToggleBtn.TextColor3 = Color3.new(1,1,1)
-ToggleBtn.Font = Enum.Font.GothamBold; ToggleBtn.TextSize = 18; Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 8)
+ToggleBtn.Font = Enum.Font.FredokaOne; ToggleBtn.TextSize = 18; Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 8)
 
 -- Hover Effects
 ToggleBtn.MouseEnter:Connect(function()
